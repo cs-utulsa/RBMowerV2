@@ -9,7 +9,7 @@ ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
 time.sleep(2)
 print("Connection established!")
 
-binary_array = PNGtoArray.image_to_array(doge.png)
+binary_array = [[random.randint(0, 1) for j in range(64)] for i in range(64)]
 
 numrows = len(binary_array)
 numcols = len(binary_array[0])
@@ -70,5 +70,3 @@ for i in range(numrows):
         bool = False
     else:
         bool = True
-
-turtle.exitonclick()
