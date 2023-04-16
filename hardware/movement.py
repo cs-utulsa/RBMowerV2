@@ -1,8 +1,6 @@
 import PNGtoArray
 import serial
 import time
-import keyboard
-
 
 # Set up serial communication
 print("Program starting...")
@@ -18,12 +16,7 @@ numcols = len(binary_array[0])
 
 screen_width = numcols * 10
 screen_height = numrows * 10
-
-turtle.setup(width=screen_width, height=screen_height)
-turtle.bgcolor("white")
-
 bool = True
-
 rows = 0
 
 
@@ -45,13 +38,13 @@ def onecycle():
     global rows
     for i in range(numcols):
         if binary_array[rows][i] == 1:
-            moveLightOnOrOff(True)
+            movePenUpOrDown(True)
             moveForwardOrBackward(bool)
-            time.sleep(0.1)
+            time.sleep(3)
         else:
-            moveLightOnOrOff(False)
+            movePenUpOrDown(False)
             moveForwardOrBackward(bool)
-            time.sleep(0.1)
+            time.sleep(3)
     rows += 1
 
 
@@ -59,21 +52,23 @@ for i in range(numrows):
     onecycle()
     if rows % 2 == 1:
         ser.write(bytes([0x04]))
-        time.sleep(0.1)
-        moveLightOnOrOff(False)
+        time.sleep(3)
+        movePenUpOrDown(False)
         moveForwardOrBackward(bool)
-        time.sleep(0.1)
+        time.sleep(3)
         ser.write(bytes([0x04]))
-        time.sleep(0.1)
+        time.sleep(3)
     else:
         ser.write(bytes([0x03]))
-        time.sleep(0.1)
-        moveLightOnOrOff(False)
+        time.sleep(3)
+        movePenUpOrDown(False)
         moveForwardOrBackward(bool)
-        time.sleep(0.1)
+        time.sleep(3)
         ser.write(bytes([0x03]))
-        time.sleep(0.1)
+        time.sleep(3)
     if (bool == True):
         bool = False
     else:
         bool = True
+
+turtle.exitonclick()
